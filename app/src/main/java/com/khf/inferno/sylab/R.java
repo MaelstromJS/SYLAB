@@ -63,7 +63,6 @@ public final class R {
         public static final int third=0x7f030009;
     }
     public static final class string {
-        public static final int action_settings=0x7f050000;
         public static final int alias_faizaan=0x7f050001;
         public static final int alias_harish=0x7f050002;
         public static final int alias_karthi=0x7f050003;
@@ -71,7 +70,6 @@ public final class R {
         public static final int aulisius=0x7f050005;
         public static final int code=0x7f050006;
         public static final int developer=0x7f050007;
-        public static final int error=0x7f050008;
         public static final int license=0x7f050009;
         public static final int mac=0x7f05000a;
         public static final int pdfView=0x7f05000b;

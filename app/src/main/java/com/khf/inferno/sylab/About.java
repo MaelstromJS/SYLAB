@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -78,8 +79,9 @@ public class About extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Button openBtn = (Button) getActivity().findViewById(R.id.open_btn);
+        openBtn.setVisibility(View.INVISIBLE);
 
         View rootView = inflater.inflate(R.layout.about, null);
 
@@ -99,8 +101,8 @@ class MyAdapter extends ArrayAdapter<String> {
     private Typeface bold;
     private Typeface normal;
 
-    private int[] headings = {R.string.code, R.string.developer, R.string.aulisius, R.string.ranguski, R.string.mac, R.string.license, R.string.pdfView, R.string.roboto};
-    private int[] alias = {R.string.version, -1, R.string.alias_faizaan, R.string.alias_harish, R.string.alias_karthi, -1, -1, -1};
+    private String[] headings = {"Source Code", "Developers", "Mohammed Faizaan", "Harish Murali", "Karthick Ramjee", "Licenses", "Android-pdfView", "Roboto"};
+    private String[] alias = {"v1.0.3", "PAD", "Aulisius F.", "Ranguski", "Mac", "PAD", "PAD", "PAD"};
     private int[] images = {R.drawable.fb, R.drawable.github};
 
     MyAdapter(Context context, ArrayList<String> values) {
@@ -115,7 +117,7 @@ class MyAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View v, ViewGroup root) {
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(position == 1 || position == 5){
 

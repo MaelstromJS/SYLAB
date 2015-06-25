@@ -26,15 +26,13 @@ public class NavigationActivity extends FragmentActivity {
 
     private DrawerLayout mDrawerLayout;
 
-    ImageView home;
-
-    Fragment fragment = null;
-
-    TextView appName;
-    Button openButton;
+    private Fragment fragment = null;
 
     private static final String ARG_PARAM1 = "fileName";
     private static final String ARG_PARAM2 = "url";
+
+    private Typeface bold;
+    private Typeface normal;
 
     ExpandableListView expListView;
     ExpandableListAdapter listAdapter;
@@ -48,6 +46,8 @@ public class NavigationActivity extends FragmentActivity {
             "AI", "DSP", "CG", "CD", "PP", "CG-Lab", "PAD", "PAD", "PAD", "PAD",
             "MPC", "SIC", "POM", "PARALLEL", "SD-Lab", "MAD-Lab", "PAD", "PAD", "PAD", "PAD"
     };
+    private String[] missing = { "TE1", "EP", "EC", "EG", "PL", "CL", "EPL", "TE2"};
+    private ArrayList<String> missingSubjects;
     private String baseUrl = "http://cs.annauniv.edu/academic/ug2012/";
 
     List<String> listDataHeader;
@@ -58,16 +58,26 @@ public class NavigationActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-        home = (ImageView)findViewById(R.id.home);
+        missingSubjects = new ArrayList<String>();
+        missingSubjects.add(0, missing[0]);
+        missingSubjects.add(1, missing[1]);
+        missingSubjects.add(2, missing[2]);
+        missingSubjects.add(3, missing[3]);
+        missingSubjects.add(4, missing[4]);
+        missingSubjects.add(5, missing[5]);
+        missingSubjects.add(6, missing[6]);
+        missingSubjects.add(7, missing[7]);
+
+        ImageView home = (ImageView) findViewById(R.id.home);
         home.setOnClickListener(homeOnclickListener);
 
-        appName = (TextView)findViewById(R.id.appname);
-        openButton = (Button) findViewById(R.id.open_btn);
+        bold = Typeface.createFromAsset(this.getAssets(), "fonts/RobotoCondensed-Bold.ttf");
+        normal = Typeface.createFromAsset(this.getAssets(), "fonts/RobotoCondensed-Regular.ttf");
 
-        Typeface bold = Typeface.createFromAsset(this.getAssets(), "fonts/RobotoCondensed-Bold.ttf");
-        Typeface normal = Typeface.createFromAsset(this.getAssets(), "fonts/RobotoCondensed-Regular.ttf");
-
+        TextView appName = (TextView) findViewById(R.id.appname);
         appName.setTypeface(bold);
+
+        Button openButton = (Button) findViewById(R.id.open_btn);
         openButton.setTypeface(normal);
 
         setupDrawer();
@@ -96,23 +106,19 @@ public class NavigationActivity extends FragmentActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-                if(groupPosition == 7 && childPosition == 0) {
-                    fragment = new About();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                    mDrawerLayout.closeDrawer(expListView);
-                    return false;
+                int index = groupPosition * 10 + childPosition;
+                if(groupPosition == 7 && childPosition == 0) fragment = new About();
+                else if (missingSubjects.contains(subjectNames[index])) fragment = new DisplayFragment();
+                else {
+                    fragment = new DisplayFragment();
+                    Bundle args = new Bundle();
+                    args.putString(ARG_PARAM1, subjectNames[index]);
+                    args.putString(ARG_PARAM2, baseUrl + subjectNames[index] + ".pdf");
+                    fragment.setArguments(args);
                 }
-
-                fragment = new DisplayFragment();
-                Bundle args = new Bundle();
-                args.putString(ARG_PARAM1, subjectNames[groupPosition * 10 + childPosition]);
-                args.putString(ARG_PARAM2, baseUrl + subjectNames[groupPosition * 10 + childPosition] + ".pdf");
-                fragment.setArguments(args);
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack(fragment.toString()).replace(R.id.content_frame, fragment).commit();
                 mDrawerLayout.closeDrawer(expListView);
                 return false;
-
             }
         });
     }
@@ -120,16 +126,12 @@ public class NavigationActivity extends FragmentActivity {
     View.OnClickListener homeOnclickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(mDrawerLayout.isDrawerOpen(expListView)){
-                mDrawerLayout.closeDrawer(expListView);
-            }else{
-                mDrawerLayout.openDrawer(expListView);
-            }
+            if(mDrawerLayout.isDrawerOpen(expListView)) mDrawerLayout.closeDrawer(expListView);
+            else mDrawerLayout.openDrawer(expListView);
         }
     };
 
-    // Catch the events related to the drawer to arrange views according to this
-    // action if necessary...
+    // Catch the events related to the drawer to arrange views according to this action if necessary...
     private DrawerListener mDrawerListener = new DrawerListener() {
 
         @Override
@@ -181,13 +183,12 @@ public class NavigationActivity extends FragmentActivity {
         List<String> s2 = new ArrayList<>();
         s2.add("Technical English 2");
         s2.add("Mathematics 2");
-        s2.add("principles of Computer Engineering");
+        s2.add("Principles of Computer Engineering");
         s2.add("Physics for Information Science");
         s2.add("Programming using C++");
         s2.add("Digital Principles and System Design");
         s2.add("Programming Laboratory");
         s2.add("Digital Laboratory");
-
 
         List<String> s3 = new ArrayList<>();
         s3.add("Algebra and Number Theory");
@@ -203,11 +204,11 @@ public class NavigationActivity extends FragmentActivity {
         s4.add("Electrical Engineering and Control Systems");
         s4.add("Design and Analysis of Algorithms");
         s4.add("Operating Systems");
-        s4.add("Java and Internet Programing");
+        s4.add("Java and Internet Programming");
         s4.add("Probability and Queuing Theory");
         s4.add("Software Engineering");
         s4.add("Operating Systems Lab");
-        s4.add("Java and Internet Programing Lab");
+        s4.add("Java and Internet Programming Lab");
 
         List<String> s5 = new ArrayList<>();
         s5.add("Object oriented Analysis and Design");
@@ -233,7 +234,7 @@ public class NavigationActivity extends FragmentActivity {
         s7.add("Mobile and Persuasive Computing");
         s7.add("Security in Computing");
         s7.add("Principles Of Management");
-        s7.add("Parallel Programing");
+        s7.add("Parallel Programming");
         s7.add("Software Development Laboratory");
         s7.add("Mobile Application Development Laboratory");
 
@@ -257,8 +258,7 @@ public class NavigationActivity extends FragmentActivity {
         // child data in format of header title, child title
         private HashMap<String, List<String>> _listDataChild;
 
-        public ExpandableListAdapter(Context context, List<String> listDataHeader,
-                                     HashMap<String, List<String>> listChildData) {
+        public ExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listChildData) {
             this._context = context;
             this._listDataHeader = listDataHeader;
             this._listDataChild = listChildData;
@@ -276,28 +276,24 @@ public class NavigationActivity extends FragmentActivity {
         }
 
         @Override
-        public View getChildView(int groupPosition, final int childPosition,
-                                 boolean isLastChild, View convertView, ViewGroup parent) {
+        public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
             final String childText = (String) getChild(groupPosition, childPosition);
 
             if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) this._context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.list_item, null);
             }
 
-            TextView txtListChild = (TextView) convertView
-                    .findViewById(R.id.lblListItem);
-
+            TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
+            txtListChild.setTypeface(normal);
             txtListChild.setText(childText);
             return convertView;
         }
 
         @Override
         public int getChildrenCount(int groupPosition) {
-            return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                    .size();
+            return this._listDataChild.get(this._listDataHeader.get(groupPosition)).size();
         }
 
         @Override
@@ -316,17 +312,15 @@ public class NavigationActivity extends FragmentActivity {
         }
 
         @Override
-        public View getGroupView(int groupPosition, boolean isExpanded,
-                                 View convertView, ViewGroup parent) {
+        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
             String headerTitle = (String) getGroup(groupPosition);
             if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) this._context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.list_group, null);
             }
 
             TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
-            lblListHeader.setTypeface(null, Typeface.BOLD);
+            lblListHeader.setTypeface(bold);
             lblListHeader.setText(headerTitle);
 
             return convertView;

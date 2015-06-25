@@ -1,14 +1,17 @@
 package com.khf.inferno.sylab;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joanzapata.pdfview.PDFView;
@@ -27,6 +30,7 @@ public class DisplayFragment extends Fragment {
     private String url;
 
     private FileDownloader fileDownloader = null;
+    
     private File file = null;
 
     //private static long ID = 0;
@@ -57,27 +61,11 @@ public class DisplayFragment extends Fragment {
             myFileName = getArguments().getString(ARG_PARAM1);
             url = getArguments().getString(ARG_PARAM2);
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        openBtn.setVisibility(View.INVISIBLE);
-        refBtn.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View rootView;
-        rootView = inflater.inflate(R.layout.fragment_display, null);
-
-        fileDownloader = new FileDownloader();
-        file = new File(fileDownloader.getFilePath("/sylab/" + myFileName + ".pdf"));
-
-        PDFView pdfView = (PDFView) rootView.findViewById(R.id.pdfView);
         openBtn = (Button) getActivity().findViewById(R.id.open_btn);
         refBtn = (Button) getActivity().findViewById(R.id.refresh_btn);
+
+        fileDownloader = new FileDownloader(); 
+        if (!fileDownloader.isFilePresent("/sylab/" + myFileName + ".pdf")) openBtn.setVisibility(View.INVISIBLE);
 
         openBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +91,38 @@ public class DisplayFragment extends Fragment {
             }
         });
 
+
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        openBtn.setVisibility(View.INVISIBLE);
+        refBtn.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        openBtn.setVisibility(View.INVISIBLE);
+        refBtn.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        if(getArguments() == null){
+            return inflater.inflate(R.layout.comingsoon, null);
+        }
+
+        View rootView;
+        rootView = inflater.inflate(R.layout.fragment_display, null);
+
+        file = new File(fileDownloader.getFilePath("/sylab/" + myFileName + ".pdf"));
+
+        PDFView pdfView = (PDFView) rootView.findViewById(R.id.pdfView);
+
         if (fileDownloader.isFilePresent("/sylab/" + myFileName + ".pdf")) {
             openBtn.setVisibility(View.VISIBLE);
             refBtn.setVisibility(View.INVISIBLE);
@@ -110,11 +130,18 @@ public class DisplayFragment extends Fragment {
             return rootView;
         }
 
-        if (fileDownloader.isReadyForDownload(this) && fileDownloader.canFileBeDownloaded) {
+        if (fileDownloader.isReadyForDownload(this)) {
             rootView = inflater.inflate(R.layout.comingsoon, null);
+            TextView error = (TextView) rootView.findViewById(R.id.textView2);
+            error.setText("You haven't downloaded this file yet");
             fileDownloader.DownloadFile(getActivity().getApplicationContext(), url, "/sylab/", myFileName, ".pdf");
             Toast.makeText(getActivity().getApplicationContext(), "File is being downloaded. Refresh after a few moments to see changes.", Toast.LENGTH_SHORT).show();
-            refBtn.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    refBtn.setVisibility(View.VISIBLE);
+                }
+            }, 1500);
             return rootView;
         }
         if (!fileDownloader.isReadyForDownload(this)) {

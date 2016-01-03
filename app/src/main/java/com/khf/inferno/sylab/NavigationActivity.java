@@ -59,14 +59,8 @@ public class NavigationActivity extends FragmentActivity {
         setContentView(R.layout.activity_navigation);
 
         missingSubjects = new ArrayList<String>();
-        missingSubjects.add(0, missing[0]);
-        missingSubjects.add(1, missing[1]);
-        missingSubjects.add(2, missing[2]);
-        missingSubjects.add(3, missing[3]);
-        missingSubjects.add(4, missing[4]);
-        missingSubjects.add(5, missing[5]);
-        missingSubjects.add(6, missing[6]);
-        missingSubjects.add(7, missing[7]);
+		for(int i = 0; i < 8 ; i++)
+	        missingSubjects.add(i, missing[i]);
 
         ImageView home = (ImageView) findViewById(R.id.home);
         home.setOnClickListener(homeOnclickListener);
@@ -144,8 +138,10 @@ public class NavigationActivity extends FragmentActivity {
     View.OnClickListener homeOnclickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(mDrawerLayout.isDrawerOpen(expListView)) mDrawerLayout.closeDrawer(expListView);
-            else mDrawerLayout.openDrawer(expListView);
+            if(mDrawerLayout.isDrawerOpen(expListView)) 
+				mDrawerLayout.closeDrawer(expListView);
+            else 
+				mDrawerLayout.openDrawer(expListView);
         }
     };
 
@@ -153,24 +149,22 @@ public class NavigationActivity extends FragmentActivity {
     private DrawerListener mDrawerListener = new DrawerListener() {
 
         @Override
-        public void onDrawerStateChanged(int status) {
-
-        }
+        public void onDrawerStateChanged(int status) { }
 
         @Override
-        public void onDrawerSlide(View view, float slideArg) {
-
-        }
+        public void onDrawerSlide(View view, float slideArg) { }
 
         @Override
-        public void onDrawerOpened(View view) {
-        }
+        public void onDrawerOpened(View view) { }
 
         @Override
-        public void onDrawerClosed(View view) {
-        }
+        public void onDrawerClosed(View view) { }
     };
 
+	/*
+	 * prepareListData - Creates the datalist to be shown in the Navigation Bar
+	 * 
+	 */
     private void prepareListData() {
         listDataHeader = new ArrayList<>();
         listDataChild = new HashMap<>();

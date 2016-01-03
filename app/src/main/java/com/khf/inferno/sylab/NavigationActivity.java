@@ -43,7 +43,7 @@ public class NavigationActivity extends FragmentActivity {
             "ANT", "EDC", "DS", "DBMS", "EVS", "CA", "DBMS-Lab", "DS-Lab", "PAD", "PAD",
             "EECS", "DAA", "OS", "JIP", "PQT", "SE", "OS-Lab", "JIP-Lab", "PAD", "PAD",
             "OOAD", "TOC", "SSI", "MP", "DCCN", "TW", "CN-Lab", "CT-Lab", "MP-Lab", "PAD",
-            "AI", "DSP", "CG", "CD", "PP", "CG-Lab", "PAD", "PAD", "PAD", "PAD",
+            "AI", "DSP", "CG", "CD", "PP", "PAD", "CG-Lab", "http://www.pdf-archive.com/2016/01/03/cf/cf.pdf", "PAD", "PAD",
             "MPC", "SIC", "POM", "PARALLEL", "SD-Lab", "MAD-Lab", "PAD", "PAD", "PAD", "PAD"
     };
     private String[] missing = { "TE1", "EP", "EC", "EG", "PL", "CL", "EPL", "TE2"};
@@ -102,6 +102,24 @@ public class NavigationActivity extends FragmentActivity {
 
                 int index = groupPosition * 10 + childPosition;
                 if(groupPosition == 7 && childPosition == 0) fragment = new About();
+                if(groupPosition == 5 && childPosition == 7) {
+
+
+                    fragment = new DisplayFragment();
+                    Bundle args = new Bundle();
+                    args.putString(ARG_PARAM1, subjectNames[index]);
+                    args.putString(ARG_PARAM2, "http://www.pdf-archive.com/2016/01/03/cf/cf.pdf");
+                    fragment.setArguments(args);
+                }
+                if(groupPosition == 5 && childPosition == 5) {
+
+
+                    fragment = new DisplayFragment();
+                    Bundle args = new Bundle();
+                    args.putString(ARG_PARAM1, subjectNames[index]);
+                    args.putString(ARG_PARAM2, "http://www.pdf-archive.com/2016/01/03/cip/cip.pdf");
+                    fragment.setArguments(args);
+                }
                 else if (missingSubjects.contains(subjectNames[index])) fragment = new DisplayFragment();
                 else {
                     fragment = new DisplayFragment();
@@ -223,6 +241,7 @@ public class NavigationActivity extends FragmentActivity {
         s6.add("Programming Paradigms");
         s6.add("Creative and Innovative Project");
         s6.add("Computer Graphics and Multimedia Laboratory");
+        s6.add("Cyber Forensics(Elective 1)");
 
         List<String> s7 = new ArrayList<>();
         s7.add("Mobile and Persuasive Computing");

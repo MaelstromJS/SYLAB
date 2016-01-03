@@ -2,32 +2,32 @@
 <items version="2" >
 
     <item
-        jar="C:\SYLAB\app\build\intermediates\exploded-aar\com.joanzapata.pdfview\android-pdfview\1.0.3\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="96a80873ac73d8057e06fc4e69db7e0bf4e3dbc3">
-        <dex dex="C:\SYLAB\app\build\intermediates\pre-dexed\debug\classes-2554ab4100974516adce694c4d82812be291fed5.jar" />
-    </item>
-    <item
-        jar="C:\Android Studio\android-sdk-windows\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="C:\SYLAB\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-b396a57a3ca346fa593234bb8cadda827f26a537.jar" />
-    </item>
-    <item
-        jar="C:\SYLAB\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="C:\SYLAB\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-ae927611c6936d948fc976033f528a4c4444d54d.jar" />
-    </item>
-    <item
-        jar="C:\SYLAB\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jar="/Users/Harish/AndroidStudioProjects/SYLAB/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="C:\SYLAB\app\build\intermediates\pre-dexed\debug\classes-411bb3b2c0ec9787b7f33ae54a0c8a08a85dbe94.jar" />
+        <dex dex="/Users/Harish/AndroidStudioProjects/SYLAB/app/build/intermediates/pre-dexed/debug/classes-3c459aebd15c74ce6e2348453c6cd0135acdb7cd.jar" />
+    </item>
+    <item
+        jar="/Volumes/Transcend/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/Harish/AndroidStudioProjects/SYLAB/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-8119d4d8f50b1ede5eb38f57fd33f336047040ea.jar" />
+    </item>
+    <item
+        jar="/Users/Harish/AndroidStudioProjects/SYLAB/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/Harish/AndroidStudioProjects/SYLAB/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-fb61d7f6730253f1c57582e0ac88082727ffb6b8.jar" />
+    </item>
+    <item
+        jar="/Users/Harish/AndroidStudioProjects/SYLAB/app/build/intermediates/exploded-aar/com.joanzapata.pdfview/android-pdfview/1.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="96a80873ac73d8057e06fc4e69db7e0bf4e3dbc3">
+        <dex dex="/Users/Harish/AndroidStudioProjects/SYLAB/app/build/intermediates/pre-dexed/debug/classes-ed5aadbdb2ba9f482b5d70ef027836acc048c4d8.jar" />
     </item>
 
 </items>
